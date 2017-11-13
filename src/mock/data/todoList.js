@@ -3,7 +3,8 @@ let Todos = []
 const COUNT = [1, 2, 3, 4, 5, 6]
 for (let i = 1; i <= COUNT.length; i++) {
   Todos.push(Mock.mock({
-    id: Mock.Random.guid(),
+    // id: Mock.Random.guid(),
+    id: i + '',
     title: Mock.Random.first(),
     isDelete: false,
     locked: Mock.Random.boolean(),

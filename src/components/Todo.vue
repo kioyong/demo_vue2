@@ -1,3 +1,4 @@
+
  <template>
   <div class="page lists-show">
     <nav>
@@ -39,6 +40,7 @@
 </template>
 <script>
 import item from './Item'
+import { getTodo } from '../api/api'
 export default {
   name: 'todo',
   components: {
@@ -47,19 +49,38 @@ export default {
   data () {
     return {
       todo: {
-        title: '星期一',
-        count: 12,
+        title: '',
+        count: 1,
         locked: false
       },
-      items: [
-        { checked: false, text: '新的一天', isDelete: false },
-        { checked: false, text: '新的一天', isDelete: false },
-        { checked: false, text: '新的一天', isDelete: false }
-      ],
-      text: ''
+      items: [],
+      text: '',
+      record: []
     }
   },
+  watch: {
+    '$route.params.id' () {
+      this.init()
+    }
+  },
+  created () {
+    this.init()
+  },
   methods: {
+    init () {
+      const ID = this.$route.params.id
+      getTodo({ id: ID }).then(res => {
+        let { id, title, count, isDelete, locked, record } = res.data.todo
+        this.items = record
+        this.todo = {
+          id: id,
+          title: title,
+          count: count,
+          locked: locked,
+          isDelete: isDelete
+        }
+      })
+    },
     onAdd () {
       this.items.push({
         checked: false, text: this.text, isDelete: false

@@ -4,3 +4,8 @@ export const getTodoList = params => {
     params: params
   })
 }
+export const getTodo = params => {
+  return axios.get(`/todo/listId`, {
+    params: params
+  })
+}

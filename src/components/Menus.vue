@@ -27,11 +27,17 @@ export default {
     }
   },
   created () {
+    console.log('start get menus')
     getTodoList({}).then(res => {
       const TODOS = res.data.todos
       this.items = TODOS
       this.todoId = TODOS[0].id
     })
+  },
+  watch: {
+    'todoId' (id) {
+      this.$router.push({ name: 'todo', params: { id: id } })
+    }
   },
   methods: {
     goList (id) {
@@ -39,7 +45,7 @@ export default {
     },
     addList () {
       this.items.push(
-        { id: 111, count: 3, title: 'new Text', isDelete: false, locked: true }
+        { id: this.items.length + 1, count: 3, title: 'new Text', isDelete: false, locked: true }
       )
     }
   }
