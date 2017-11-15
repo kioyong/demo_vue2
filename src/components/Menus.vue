@@ -8,7 +8,7 @@
     </a> -->
     <a @click="goList(item.id)" class="list-todo list activeListClass" :class="{'active': item.id === todoId}" v-for="item in items">
       <span class="icon-lock" v-if="item.locked"></span>
-      <span class="count-list" v-if="item.count > 0">{{item.count}}</span>
+      <span class="count-list" v-if="item.count > 0">{{count}}</span>
       {{item.title}}
     </a>
     <a class=" link-list-new" @click="addList()">
@@ -23,7 +23,8 @@ export default {
   data () {
     return {
       items: [],
-      todoId: ''
+      todoId: '',
+      count: 0
     }
   },
   created () {
@@ -37,6 +38,9 @@ export default {
   watch: {
     'todoId' (id) {
       this.$router.push({ name: 'todo', params: { id: id } })
+      this.$store.commit('addcount')
+      this.count = this.$store.state.count
+      // console.log(this.$store.state.count)
     }
   },
   methods: {
