@@ -30,16 +30,15 @@ export default {
   created () {
     console.log('start get menus')
     getTodoList({}).then(res => {
-      const TODOS = res.data.todos
-      this.items = TODOS
-      this.todoId = TODOS[0].id
+      this.items = res.data
+      this.todoId = this.items[0].id
     })
   },
   watch: {
     'todoId' (id) {
       this.$router.push({ name: 'todo', params: { id: id } })
       this.$store.commit('addcount')
-      this.count = this.$store.state.count
+      // this.count = this.$store.state.count
       // console.log(this.$store.state.count)
     }
   },

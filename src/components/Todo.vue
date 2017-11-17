@@ -54,8 +54,8 @@ export default {
         locked: false
       },
       items: [],
-      text: '',
-      record: []
+      text: ''
+      // record: []
     }
   },
   watch: {
@@ -70,20 +70,20 @@ export default {
     init () {
       const ID = this.$route.params.id
       getTodo({ id: ID }).then(res => {
-        let { id, title, count, isDelete, locked, record } = res.data.todo
-        this.items = record
+        let { id, title, activity, locked } = res.data
+        this.items = res.data.item
         this.todo = {
           id: id,
           title: title,
-          count: count,
+          count: res.data.item.length,
           locked: locked,
-          isDelete: isDelete
+          activity: activity
         }
       })
     },
     onAdd () {
       this.items.push({
-        checked: false, text: this.text, isDelete: false
+        checked: false, text: this.text, activity: false
       })
       this.text = ''
     }

@@ -3,10 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import Mock from './mock'
+// import Mock from './mock'
 import { store } from './vuex/store'
 
-Mock.start()
+// Mock.start()
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
