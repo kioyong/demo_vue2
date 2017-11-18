@@ -6,10 +6,10 @@
       0">{{item.count}}</span>
       {{item.title}}
     </a> -->
-    <a @click="goList(item.id)" class="list-todo list activeListClass" :class="{'active': item.id === todoId}" v-for="item in items">
-      <span class="icon-lock" v-if="item.locked"></span>
-      <span class="count-list" v-if="item.count > 0">{{count}}</span>
-      {{item.title}}
+    <a @click="goList(mark.id)" class="list-todo list activeListClass" :class="{'active': mark.id === todoId}" v-for="(mark,index) in todoList" :key="index">
+      <span class="icon-lock" v-if="mark.locked"></span>
+      <span class="count-list" v-if="mark.item.length > 0">{{mark.item.length}}</span>
+      {{mark.title}}
     </a>
     <a class=" link-list-new" @click="addList()">
       <span class="icon-plus"></span>新增
@@ -17,29 +17,30 @@
   </div>
 </template>
 <script>
-import { getTodoList } from '../api/api'
+// import { getMarkList } from '../api/api'
 export default {
   name: 'menus',
   data () {
     return {
-      items: [],
-      todoId: '',
-      count: 0
+      todoId: ''
+    }
+  },
+  computed: {
+    todoList () {
+      return this.$store.getters.getMarkList
     }
   },
   created () {
     console.log('start get menus')
-    getTodoList({}).then(res => {
-      this.items = res.data
-      this.todoId = this.items[0].id
+    this.$store.dispatch('markListAsync').then(() => {
+      this.$nextTick(() => {
+        this.goList(this.todoList[0].id)
+      })
     })
   },
   watch: {
     'todoId' (id) {
       this.$router.push({ name: 'todo', params: { id: id } })
-      this.$store.commit('addcount')
-      // this.count = this.$store.state.count
-      // console.log(this.$store.state.count)
     }
   },
   methods: {

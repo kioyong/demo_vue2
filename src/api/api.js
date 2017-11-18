@@ -1,7 +1,8 @@
 import axios from 'axios'
-export const getTodoList = params => {
+export const getMarkListApi = params => {
   return axios.get(`http://localhost:9001/mark`)
 }
-export const getTodo = params => {
-  return axios.get(`http://localhost:9001/mark/` + params.id)
+
+export const updateMarkApi = params => {
+  return axios.put('http://localhost:9001/mark', params).then(res => res.data)
 }
