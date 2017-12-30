@@ -1,5 +1,7 @@
 # demo1
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kioyong/demo_vue2.svg)](https://greenkeeper.io/)
+
 > vue study demo project
 
 ## Build Setup
